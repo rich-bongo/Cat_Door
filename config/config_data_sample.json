@@ -1,0 +1,17 @@
+{
+    "PHOTO_LOCATION": "photos",
+    "PICKLE_NAME": "models/svc_model.pkl",
+    "FROM_EMAIL": " ",
+    "TO_EMAIL": " ",
+    "CAT_NAME": " ",
+    "SMTP_SERVER": " ",
+    "SMTP_PORT": " ",
+    "DETECTOR":"models/detector.svm",
+    "PREDICTOR":"models/predictor.dat",
+    "BYPASS_ID_RESULT": "Yes",
+    "DOOR_OPEN_TIMEOUT": 20,
+    "DOOR_CLOSE_TIMEOUT": 20,
+    "DOOR_MOVEMENT_TIMEOUT" :10,
+    "DOOR_OPEN_DWELL": 5,
+    "LOG_LOCATION" : "log"
+}
