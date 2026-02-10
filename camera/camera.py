@@ -14,6 +14,7 @@ class Cam:
         self.logger = logging.getLogger('logger_util.camera')
         self.logger.info('creating an instance of logger for camera')
         self.dir = cnfg.get_config("PHOTO_LOCATION")
+        self.num_photos = cnfg.get_config("NUM_PHOTOS")
 
     """ 
     A method to take photos and save to file
@@ -27,9 +28,9 @@ class Cam:
       if not cap.isOpened():
           self.logger.error("Error: Could not open camera.")
       else:
-         # take 5 photos and save to disk.  
+         # take a configurable number of photos and save to disk.  
          num_photos =0         
-         while num_photos < 5:
+         while num_photos < self.num_photos:
               ret, frame = cap.read()
               if ret:
                   fname = f"{str(int(time.time()))}.jpg"

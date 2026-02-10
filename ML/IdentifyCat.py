@@ -25,7 +25,7 @@ class IDCat:
     """
 
     def id_cat(self):
-         my_cat = False
+         result_list = []
          try:
              entries = os.listdir(self.CAT_PIX)
          except FileNotFoundError:
@@ -35,17 +35,19 @@ class IDCat:
              if landmarks is not None:
                   features = self.SVM_Util.normalize_landmarks(landmarks)
                   prediction = self.clf.predict([features])[0]
+                  # Append a 2 to the list if the cat was identified as the one trained for
                   if prediction == 1:
                         self.logger.info(f"{image_file} identified as {self.CAT_NAME}")
                         my_cat = True
-                        return my_cat
+                        result_list.append(2)
+                  # Append a 1 to the list if the photo contains a cat, but it's not the one trained for
                   else:
                         self.logger.info(f"{image_file} not Roscoe")
-                                     
+                        result_list.append(1)
+             # # Append a 0 to the list if no cats were identified in the photo                        
              else:
-                  self.logger.debug(f"{image_file} no landmarks extracted")           
-         if self.BYPASS_ID_RESULT == "Yes":
-          my_cat=True
-          self.logger.debug('negative result overridden') 
-         return my_cat
+                  self.logger.debug(f"{image_file} no landmarks extracted")       
+                  result_list.append(0)    
+         # for all the photos analyzed, return the result with the highest score
+         return max(result_list)
                
