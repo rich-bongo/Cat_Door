@@ -24,7 +24,6 @@ class Cam:
     def take_photos(self):
       cap = cv2.VideoCapture(0)
       # Check if the camera was opened successfully
-      time.sleep(2)
       if not cap.isOpened():
           self.logger.error("Error: Could not open camera.")
       else:
@@ -36,8 +35,7 @@ class Cam:
                   fname = f"{str(int(time.time()))}.jpg"
                   full_path = os.path.join(self.dir,fname)
                   cv2.imwrite(full_path, frame)
-                  self.logger.info(f"Image saved as {full_path}")
-                  
+                  self.logger.info(f"Image saved as {full_path}")                  
                   time.sleep(1)    
 
               else:

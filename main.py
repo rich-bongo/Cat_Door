@@ -1,12 +1,16 @@
 import state_machine.cat_door_state_machine as state
 import time
 import logging
+import os
 from logging.handlers import TimedRotatingFileHandler
 
 if __name__ == "__main__":
     logger = logging.getLogger('logger_util')
     logger.setLevel(logging.DEBUG)
    
+    # ensure log directory exists
+    os.makedirs('log', exist_ok=True)
+
     # create file handler which logs even debug messages
     rollover_handler = TimedRotatingFileHandler('log/cat_door.log', when="midnight", interval=1, backupCount=7)
     

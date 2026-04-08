@@ -42,8 +42,8 @@ class SendEmail:
                     with open(path_to_file,'rb') as file:
                          msg.attach(MIMEApplication(file.read(), Name=path_to_file))
          except FileNotFoundError:
-              self.logger.error(f"Error: The directory '{dir}' was not found.") 
-              success = False
+              self.logger.error(f"Error: The directory '{dir}' was not found.")
+              return
 
          with smtplib.SMTP_SSL(self.smtp_server, self.smtp_port) as server:
           try:
@@ -67,9 +67,9 @@ class SendEmail:
                   self.logger.error(f"Exception Reason: {e}")
                   success = False
  
-         server.quit
+         #server.quit()
 
-    # delete photos only if email was successful
+         # delete photos only if email was successful
          if success:
               for item in os.listdir(dir):
                path_to_file = os.path.join(dir,item)    

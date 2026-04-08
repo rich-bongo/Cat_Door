@@ -70,9 +70,9 @@ class Init(DoorState):
         if first_call:
             self.logger.info('Entered State: Init')
         if self.RP.get_io_status("door_closed_ls"):
-            return 'DoorClosing'
-        else:
             return 'DoorClosed'
+        else:
+            return 'DoorClosing'
 
 
 class DoorClosed(DoorState):
@@ -104,22 +104,16 @@ class Evaluate(DoorState):
         decision = self.cat_id.id_cat()
         now = datetime.now()
         format_time = now.strftime("%H:%M:%S")
-        open_door = False
-        """
-        Bypass configuration: 
-        0 --> most permissive. Will always open door regardless of whether or not a cat was identified in any photo
-        1 --> medium permissive. at least one photo must have identified a cat, but not necessarily the cat that the model was trained on.
-        2 --> most restrictive. at least one photo must have identified the cat the model was trained on.
-        """
-        if decision >= self.bypass:
-          body = f"Door Activated {format_time} - criteria met"
-          open_door = True
+        if decision:
+          if self.bypass != "Yes":
+                body = f"Door Activated at {format_time}, cat recognized"
+          else:
+                body = f"Door Activated at {format_time}, may have been overwridden via configuration"     
         else:
-          body = f"Door NOT Activated  {format_time} - criteria not met"     
-
+            body = f"Door NOT Activated at {format_time}, cat not recognized"
         # send email
         self.email.email_photos(body, self.cat_name,self.dir)
-        if open_door:
+        if decision:
             return 'DoorOpening'
         else:
            return 'DoorClosed'
@@ -226,7 +220,7 @@ class DoorClosing(DoorState):
 class Error(DoorState):
     def do_state(self, first_call):
         self.logger.error("Entered state: error")
-        em.SendEmail.email_photos("Error State Entered", self.cat_name,self.log_lcn)
+        self.email.email_photos("Error State Entered", self.cat_name, self.log_lcn)
         self.RP.cleanup()
         sys.exit()
 

@@ -13,6 +13,7 @@ class ConfigUtility:
     def __init__(self):
         self.logger = logging.getLogger('logger_util.config')
         self.logger.info('creating an instance of logger for config')
+        self._config = self.load_config()
     
     
     """
@@ -50,13 +51,10 @@ class ConfigUtility:
         returns: Configuration value
     """
     def get_config(self,cfg_name):
-        config_data = self.load_config()
         try:
-            return config_data[cfg_name]
+            return self._config[cfg_name]
         except KeyError:
             self.needed_config_value_not_found(cfg_name)
-            #self.logger.error(f"value for key {cfg_name} not found.... skipping")
-            #return "KEY NOT FOUND"
 
 
      

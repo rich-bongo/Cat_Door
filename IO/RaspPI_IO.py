@@ -83,7 +83,7 @@ class RaspPi_IO:
     """
     @staticmethod    
     def cleanup():
-        GPIO.cleanup
+        GPIO.cleanup()
 
 
 
