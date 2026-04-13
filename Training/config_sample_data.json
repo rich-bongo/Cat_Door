@@ -1,0 +1,7 @@
+{
+    "Target": "Location of photos of your cat",
+    "Non_Target": "Location of photos that are not your cat",
+    "pred": "location of predictor file (models dir)",
+    "det": "location of detector file (models dir)",
+    "write_to":"location where write binary classifier model should be written to (models dir)"
+}

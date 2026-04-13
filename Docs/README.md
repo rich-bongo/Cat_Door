@@ -47,7 +47,9 @@ The software uses pretrained models to extract cat faces from photographs and to
 
 
 
-A binary classifier was trained to differentiate one specific cat from other cats. This is included in models/svc\_model.pkl. Software to create the binary classifier will be delivered to a separate repository.
+A binary classifier was trained to differentiate one specific cat from other cats. This is included in models/svc_model.pkl. 
+the python sript Cat_Door/Training/TrainBinaryClassification.py can be used to create a binary classifier for any cat. The json configuration file in the Training directory should be modified to point to the directories with the approproate photos.
+Running that python script will create an updated version of svc_model.pkl that can be written to the models directory and used for the decision logic.
 
 
 
@@ -72,6 +74,7 @@ The code is separated into projects:
 * camera: Controls the USB camera. 
 * Util: contains the configuration manager. User configurable items are held in a json file. The ConfigUtility class reads the json file, holds as a dictionary and exposes a method to allow other classes to retrieve configuration values.   
 * main.py: initiates and configures the logger. Retrieves a dictionary of state names (k) and individual state instances (v). The code uses this dictionary to progress the state machine based  the state machine business logic. The script loops indefinately, sleeping for .1 seconds on each iteration.
+* Training: contains a python script to train a binary classifier so that a specific cat can be recognized.
 
 
 
