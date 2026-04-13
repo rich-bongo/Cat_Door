@@ -2,5 +2,5 @@ start_cat_door.sh
 config/config_data.json
 log/*.log
 *.pyc
-
+Training/config_data.json
 
