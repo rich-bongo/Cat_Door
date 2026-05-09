@@ -36,7 +36,7 @@ class Cam:
                   full_path = os.path.join(self.dir,fname)
                   cv2.imwrite(full_path, frame)
                   self.logger.info(f"Image saved as {full_path}")                  
-                  time.sleep(1)    
+                  time.sleep(2)    
 
               else:
                   self.logger.error(f"image save failed {full_path}")
